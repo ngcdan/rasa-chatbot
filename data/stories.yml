@@ -6,10 +6,30 @@ stories:
     - intent: book_table
     - action: utter_ask_number_of_people
     - intent: inform_number_of_people
+    - slot_was_set:
+      - number_of_people: "4"  # Giá trị mẫu, có thể thay đổi
     - action: utter_ask_time
     - intent: inform_ask_time
+    - slot_was_set:
+      - time: "7 giờ tối"  # Giá trị mẫu, có thể thay đổi
     - action: action_book_table
     - action: utter_confirm_reservation
+
+# - story: Hỏi thêm số lượng người khi thiếu thông tin
+#   steps:
+#     - intent: book_table
+#     - action: utter_ask_number_of_people
+#     - slot_was_set:
+#         - number_of_people: null  # Slot chưa được thiết lập
+#     - action: utter_ask_number_of_people
+
+# - story: Hỏi thêm thời gian khi thiếu thông tin
+#   steps:
+#     - intent: book_table
+#     - action: utter_ask_time
+#     - slot_was_set:
+#         - time: null  # Slot chưa được thiết lập
+#     - action: utter_ask_time
 
 - story: Hỏi giờ mở cửa
   steps:

@@ -29,6 +29,14 @@
 
 ### **Khởi tạo một dự án Rasa mới**
 
+Mô tả bài toán
+Chúng ta sẽ xây dựng một chatbot có thể:
+
+Nhận diện ý định (intent) của người dùng muốn đặt bàn.
+Trích xuất các thông tin như số lượng người (number_of_people) và thời gian (time).
+Lưu trữ các thông tin này trong slots.
+Sử dụng các thông tin trong slots để phản hồi hoặc thực hiện hành động.
+
 1. **Tạo một dự án Rasa mới**:
 Chúng ta sẽ sử dụng lệnh `rasa init` để khởi tạo một dự án mới. Điều này sẽ tạo ra cấu trúc thư mục cơ bản cho dự án của bạn và cung cấp một mẫu bot.
 
@@ -253,7 +261,7 @@ class ActionBookTable(Action):
     - "Tôi muốn đặt bàn cho 4 người vào lúc 7 giờ tối"
     - "Giờ mở cửa của bạn là gì?"
 
-  ![Example]('./example/Screenshot.png')
+  ![Demo](./example/Screenshot.png)
 
 3. **Chạy bot với giao diện web** (tùy chọn):
 Nếu bạn muốn chạy bot trên giao diện web hoặc tích hợp với các ứng dụng khác, bạn có thể sử dụng lệnh sau:
@@ -262,3 +270,6 @@ Nếu bạn muốn chạy bot trên giao diện web hoặc tích hợp với cá
     rasa run
 
     ```
+
+
+### Chi tiết từng phần.
