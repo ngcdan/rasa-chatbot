@@ -1,0 +1,31 @@
+# Xác định các intents, entities, actions, và responses của bot.
+version: "3.1"
+
+intents:
+  - greet
+  - book_table
+  - ask_opening_hours
+  - inform
+
+entities:
+  - number_of_people
+  - time
+
+responses:
+  utter_greet:
+    - text: "Xin chào! Tôi có thể giúp gì cho bạn?"
+
+  utter_ask_number_of_people:
+    - text: "Bạn muốn đặt bàn cho bao nhiêu người?"
+
+  utter_ask_time:
+    - text: "Bạn muốn đặt bàn vào lúc mấy giờ?"
+
+  utter_confirm_reservation:
+    - text: "Cảm ơn! Tôi đã đặt bàn cho bạn."
+
+  utter_opening_hours:
+    - text: "Chúng tôi mở cửa từ 8 giờ sáng đến 10 giờ tối mỗi ngày."
+
+actions:
+  - action_book_table

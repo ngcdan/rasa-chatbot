@@ -1,0 +1,29 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - Xin chào
+    - Chào bạn
+    - Hello
+    - Hi
+
+- intent: book_table
+  examples: |
+    - Tôi muốn đặt bàn
+    - Đặt bàn cho tối nay
+    - Làm ơn đặt giúp tôi một bàn
+    - Đặt chỗ cho [4 người](number_of_people) vào lúc [7 giờ tối](time)
+    - Tôi muốn đặt bàn vào [ngày mai](time) cho [4 người](number_of_people)
+
+- intent: ask_opening_hours
+  examples: |
+    - Giờ mở cửa của bạn là gì?
+    - Khi nào bạn mở cửa?
+    - Bạn mở cửa lúc mấy giờ?
+
+- intent: inform
+  examples: |
+    - [4 người](number_of_people)
+    - [7 giờ tối](time)
+    - [ngày mai](time)

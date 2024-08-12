@@ -1,0 +1,17 @@
+version: "3.1"
+
+stories:
+- story: Đặt bàn thành công
+  steps:
+    - intent: book_table
+    - action: utter_ask_number_of_people
+    - intent: inform
+    - action: utter_ask_time
+    - intent: inform
+    - action: action_book_table
+    - action: utter_confirm_reservation
+
+- story: Hỏi giờ mở cửa
+  steps:
+    - intent: ask_opening_hours
+    - action: utter_opening_hours
