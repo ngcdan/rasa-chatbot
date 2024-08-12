@@ -41,6 +41,22 @@ Chúng ta sẽ sử dụng lệnh `rasa init` để khởi tạo một dự án 
 
 2. **Cấu trúc thư mục**:
 Sau khi khởi tạo, bạn sẽ thấy các thư mục và tệp sau:
+
+```arduino
+my_rasa_project/
+│
+├── actions/
+│   └── actions.py
+├── config.yml
+├── domain.yml
+├── data/
+│   ├── nlu.yml
+│   ├── stories.yml
+│   └── rules.yml
+└── ...
+```
+
+
     - **data/nlu.yml**: Chứa các intents và ví dụ training cho mô hình NLU.
     - **data/stories.yml**: Chứa các stories để huấn luyện Rasa Core.
     - **data/rules.yml**: Chứa các rules đơn giản cho bot.
@@ -81,7 +97,7 @@ Sau khi khởi tạo, bạn sẽ thấy các thư mục và tệp sau:
 
 2. **Thêm các thực thể (entities)** trong cùng tệp `nlu.yml`. Các thực thể như số lượng người (`number_of_people`) và thời gian (`time`) sẽ được sử dụng để trích xuất thông tin từ câu hỏi của người dùng.
 
-### **Bước 4: Xây dựng Stories và Rules**
+### **Bước 4: Xây dựng Stories, Rules và Actions**
 
 1. **Sửa đổi `stories.yml`** để tạo ra kịch bản hội thoại cho việc đặt bàn. Mở tệp `data/stories.yml` và cập nhật như sau:
 
@@ -122,6 +138,38 @@ Sau khi khởi tạo, bạn sẽ thấy các thư mục và tệp sau:
 
     ```
 
+3. **Sửa đổi `rules.yml`** để tạo các quy tắc đơn giản. Mở tệp `data/rules.yml` và cập nhật như sau:
+Tạo tệp actions.py:
+Bây giờ, hãy tạo tệp actions.py trong thư mục actions/ và thêm mã sau để triển khai hành động action_book_table:
+
+```python
+# actions/actions.py
+
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
+
+class ActionBookTable(Action):
+
+    def name(self) -> str:
+        return "action_book_table"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict) -> list:
+
+        # Giả lập việc lấy các thực thể từ tracker
+        number_of_people = tracker.get_slot("number_of_people")
+        time = tracker.get_slot("time")
+
+        # Tạo phản hồi
+        response = f"Đã đặt bàn cho {number_of_people} người vào lúc {time}."
+
+        # Gửi phản hồi tới người dùng
+        dispatcher.utter_message(text=response)
+
+        return []
+```
 
 ### **Bước 5: Cấu hình Responses và Actions**
 
@@ -173,6 +221,27 @@ Sau khi khởi tạo, bạn sẽ thấy các thư mục và tệp sau:
 
 2. **Kiểm thử bot** bằng cách chạy:
 
+- **Khởi động Action Server:**
+  Trước khi chạy bot, bạn cần khởi động Action Server. Mở một cửa sổ terminal mới và chạy lệnh sau để khởi động Action Server:
+  ```bash
+  rasa run actions
+  ```
+  Lệnh này sẽ khởi động Action Server và chờ các yêu cầu từ Rasa bot.
+
+- **Cấu hình `endpoints.yml`:**
+- **Kiểm tra tệp `endpoints.yml`:**
+  Đảm bảo rằng bạn có tệp `endpoints.yml` trong thư mục gốc của dự án và tệp này chứa cấu hình chính xác để kết nối đến Action Server.
+
+  Nếu tệp `endpoints.yml` chưa tồn tại, bạn cần tạo nó với nội dung như sau:
+  ```yaml
+  action_endpoint:
+    url: "http://localhost:5055/webhook"
+  ```
+  Đây là cấu hình mặc định khi bạn chạy Action Server trên máy tính của mình, nó sẽ lắng nghe ở cổng `5055`.
+
+- **Khởi động lại Rasa bot:**
+
+- Sau khi cấu hình đúng `endpoints.yml` và khởi động Action Server, bạn có thể khởi động lại Rasa bot trong một cửa sổ terminal khác:
     ```bash
     rasa shell
 
@@ -183,6 +252,9 @@ Sau khi khởi tạo, bạn sẽ thấy các thư mục và tệp sau:
     - "Xin chào"
     - "Tôi muốn đặt bàn cho 4 người vào lúc 7 giờ tối"
     - "Giờ mở cửa của bạn là gì?"
+
+  ![Example]('./example/Screenshot.png')
+
 3. **Chạy bot với giao diện web** (tùy chọn):
 Nếu bạn muốn chạy bot trên giao diện web hoặc tích hợp với các ứng dụng khác, bạn có thể sử dụng lệnh sau:
 

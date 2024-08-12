@@ -5,9 +5,9 @@ stories:
   steps:
     - intent: book_table
     - action: utter_ask_number_of_people
-    - intent: inform
+    - intent: inform_number_of_people
     - action: utter_ask_time
-    - intent: inform
+    - intent: inform_ask_time
     - action: action_book_table
     - action: utter_confirm_reservation
 

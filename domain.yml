@@ -5,11 +5,25 @@ intents:
   - greet
   - book_table
   - ask_opening_hours
-  - inform
+  - inform_number_of_people
+  - inform_ask_time
 
 entities:
   - number_of_people
   - time
+
+slots:
+  number_of_people:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: number_of_people
+
+  time:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: time
 
 responses:
   utter_greet:
