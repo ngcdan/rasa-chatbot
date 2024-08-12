@@ -51,7 +51,7 @@ Chúng ta sẽ sử dụng lệnh `rasa init` để khởi tạo một dự án 
 Sau khi khởi tạo, bạn sẽ thấy các thư mục và tệp sau:
 
 ```arduino
-my_rasa_project/
+rasa-demo/
 │
 ├── actions/
 │   └── actions.py
@@ -62,14 +62,13 @@ my_rasa_project/
 │   ├── stories.yml
 │   └── rules.yml
 └── ...
+
 ```
-
-
-    - **data/nlu.yml**: Chứa các intents và ví dụ training cho mô hình NLU.
-    - **data/stories.yml**: Chứa các stories để huấn luyện Rasa Core.
-    - **data/rules.yml**: Chứa các rules đơn giản cho bot.
-    - **domain.yml**: Xác định các intents, entities, actions, và responses của bot.
-    - **config.yml**: Cấu hình mô hình NLU và Core.
+- **data/nlu.yml**: Chứa các intents và ví dụ training cho mô hình NLU.
+- **data/stories.yml**: Chứa các stories để huấn luyện Rasa Core.
+- **data/rules.yml**: Chứa các rules đơn giản cho bot.
+- **domain.yml**: Xác định các intents, entities, actions, và responses của bot.
+- **config.yml**: Cấu hình mô hình NLU và Core.
 
 ### **Bước 3: Xây dựng NLU cho dự án**
 
@@ -272,4 +271,3 @@ Nếu bạn muốn chạy bot trên giao diện web hoặc tích hợp với cá
     ```
 
 
-### Chi tiết từng phần.
