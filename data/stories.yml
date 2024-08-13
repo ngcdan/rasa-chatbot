@@ -35,3 +35,50 @@ stories:
   steps:
     - intent: ask_opening_hours
     - action: utter_opening_hours
+
+# Request quote Sea FCL Import: define sample story to handle quote requests
+
+- story: Báo giá Sea FCL Import thành công
+  steps:
+    - intent: request_quote_sea_fcl_import
+    - slot_was_set:
+        - route: "Shanghai - Hải Phòng"  # Giá trị mẫu
+        - ready_to_load: "15/12"  # Giá trị mẫu
+    - action: action_provide_quote
+    - action: utter_confirm_quote
+
+- story: Yêu cầu thêm thông tin tuyến đường
+  steps:
+    - intent: request_quote_sea_fcl_import
+    - slot_was_set:
+        - route: "Shanghai - Hải Phòng"
+    - action: utter_ask_route
+    - intent: inform_route
+    - slot_was_set:
+        - ready_to_load: "15/12"
+    - action: utter_ask_date
+    - intent: inform_date
+    - action: action_provide_quote
+    - action: utter_confirm_quote
+
+# - story: Yêu cầu thêm thông tin ngày vận chuyển
+#   steps:
+#     - intent: request_quote_sea_fcl_import
+#     - slot_was_set:
+#         - ready_to_load: "15/12"
+#     - action: utter_ask_date
+#     - intent: inform_date
+#     - action: action_provide_quote
+#     - action: utter_confirm_quote
+
+- story: Yêu cầu báo giá Sea FCL Import
+  steps:
+    - intent: request_quote_sea_fcl_import
+    - action: fcl_import_quote_form
+    - active_loop: fcl_import_quote_form
+
+- story: Hủy bỏ form báo giá
+  steps:
+    - intent: stop_fcl_import_request_quote
+    - action: action_deactivate_loop
+    - active_loop: null

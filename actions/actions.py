@@ -26,7 +26,7 @@
 #
 #         return []
 
-from rasa_sdk import Action, Tracker
+from rasa_sdk import Action, Tracker, FormValidationAction
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
 
@@ -53,3 +53,48 @@ class ActionBookTable(Action):
         dispatcher.utter_message(text=response)
 
         return []
+
+# action_provide_quote
+class ActionProvideQuote(Action):
+
+    def name(self) -> str:
+        return "action_provide_quote"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict) -> list:
+
+        print("call action provice quote\n")
+        route = tracker.get_slot("route")
+        ready_to_load = tracker.get_slot("ready_to_load")
+        transport_type = tracker.get_slot("transport_type")
+
+        # Tạo phản hồi
+        response = f"Match Price for {route} , {ready_to_load}."
+        dispatcher.utter_message(text=response)
+        return []
+
+class ValidateQuoteForm(FormValidationAction):
+
+    def name(self) -> str:
+        return "validate_quote_form"
+
+    def validate_route(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        """Validate `route` value."""
+
+        if "-" in slot_value:
+            # Tuyến đường hợp lệ
+            return {"route": slot_value}
+        else:
+            dispatcher.utter_message(text="Vui lòng cung cấp tuyến đường hợp lệ theo định dạng from - to.")
+            return {"route": None}  # Không thiết lập slot nếu không hợp lệ
+
+    def validate_date(self, slot_value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+        """Validate `date` value."""
+
+        # Giả sử kiểm tra định dạng ngày hợp lệ
+        if len(slot_value.split("/")) in [2, 3] or len(slot_value.split("-")) in [2, 3]:
+            return {"ready_to_load": slot_value}
+        else:
+            dispatcher.utter_message(text="Vui lòng cung cấp ngày vận chuyển hợp lệ.")
+            return {"ready_to_load": None}  # Không thiết lập slot nếu không hợp lệ

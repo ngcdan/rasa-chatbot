@@ -32,3 +32,29 @@ nlu:
   examples: |
     - [7 giờ tối](time)
     - [ngày mai](time)
+
+# Request quote Sea FCL Import
+- intent: request_quote_sea_fcl_import
+  examples: |
+    - Tôi cần báo giá vận chuyển từ [Shanghai - Hải Phòng](route) vào [15/12](ready_to_load)
+    - Báo giá vận tải FCL Import từ [Tokyo - Saigon](route) ngày [01-10](ready_to_load)
+    - Tôi muốn tìm báo giá cho tuyến [Shang hai - Hải Phòng](route) ngày [25/12/2024](ready_to_load)
+    - Vui lòng báo giá Sea FCL Import từ [Tokyo - Thanh Pho Ho Chi Minh](route) vào [15-10-2023](ready_to_load)
+
+- intent: inform_route
+  examples: |
+    - Tuyến đường là [Tokyo - Saigon](route)
+    - Đường đi từ [Shang hai - Hải Phòng](route)
+
+- intent: inform_date
+  examples: |
+    - Ngày vận chuyển là [15/12](ready_to_load)
+    - Thời gian xuất hàng là [01/12/2023](ready_to_load)
+    - Dự kiến vận chuyển ngày [25-12-2023](ready_to_load)
+
+- intent: stop_fcl_import_request_quote
+  examples: |
+    - Dừng lại
+    - Tôi không muốn tiếp tục nữa
+    - Hủy bỏ
+    - Không cần nữa, cảm ơn

@@ -7,10 +7,17 @@ intents:
   - ask_opening_hours
   - inform_number_of_people
   - inform_ask_time
+  # Request Quote FCL Import
+  - request_quote_sea_fcl_import
+  - inform_route
+  - inform_date
+  - stop_fcl_import_request_quote
 
 entities:
   - number_of_people
   - time
+  - route
+  - ready_to_load
 
 slots:
   number_of_people:
@@ -24,6 +31,26 @@ slots:
     mappings:
       - type: from_entity
         entity: time
+
+  route:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: route
+
+  ready_to_load:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: ready_to_load
+
+  transport_type:
+    type: text
+    initial_value: "Sea FCL Import"  # Thiết lập giá trị mặc định
+    mappings:
+      - type: from_intent
+        intent: request_quote_sea_fcl_import
+        value: "FCL_IMPORT"
 
 responses:
   utter_greet:
@@ -41,5 +68,22 @@ responses:
   utter_opening_hours:
     - text: "Chúng tôi mở cửa từ 8 giờ sáng đến 10 giờ tối mỗi ngày."
 
+  utter_ask_route:
+    - text: "Bạn cần vận chuyển từ đâu đến đâu?"
+
+  utter_ask_date:
+    - text: "Vui lòng cho tôi biết ngày vận chuyển?"
+
+  utter_confirm_quote:
+    - text: "Cảm ơn! Tôi đã ghi nhận yêu cầu báo giá cho tuyến {route} vào ngày {ready_to_load} cho dịch vụ {transport_type}."
+
+forms:
+  fcl_import_quote_form:
+    required_slots:
+      - route
+      - ready_to_load
+
 actions:
   - action_book_table
+  - action_provide_quote
+  - validate_quote_form
